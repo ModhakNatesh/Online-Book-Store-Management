@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Order Details</h2>
+
+<table>
+    <tr>
+        <th>Order ID</th>
+        <th>Book Name</th>
+        <th>Book Price</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>Pincode</th>
+        <th>Country</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+        <th>COD</th>
+    </tr>
+    {% for order in orders %}
+    <tr>
+        <td>{{ order.order_id }}</td>
+        <td>{{ order.book_name }}</td>
+        <td>{{ order.book_price }}</td>
+        <td>{{ order.email }}</td>
+        <td>{{ order.phone }}</td>
+        <td>{{ order.name }}</td>
+        <td>{{ order.address }}</td>
+        <td>{{ order.city }}</td>
+        <td>{{ order.pincode }}</td>
+        <td>{{ order.country }}</td>
+        <td>{{ order.quantity }}</td>
+        <td>{{ order.subtotal }}</td>
+        <td>{{ order.cod }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

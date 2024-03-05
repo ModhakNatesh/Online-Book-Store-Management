@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="Stylesheet" href="{%static './css/bootstrap.css' %}">
+    <title>Order Confirmation</title>
+    <style>
+        .container {
+            margin-top: 250px;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+
+        .btn-primary {
+            background-color: #7c7c7c;
+            border: none;
+        }
+
+        .btn-primary:hover{
+            background-color: #686868;
+        }
+
+        .btn-primary:active{
+            background-color: #686868;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Your Order Has Been Placed Successfully!!</h1>
+                <p>Thank You For Shopping With Us..</p>
+                <a href="{% url 'landing_page' %}"><button type="button" class="btn btn-primary">Continue Shopping</button></a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

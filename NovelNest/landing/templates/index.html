@@ -1,0 +1,278 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>NovelNest</title>
+  <link rel="Stylesheet" href="{% static './css/bootstrap.css' %}">
+  <script src="{% static './js/bootstrap.js' %}"></script>
+  <script src="{% static './js/landing.js' %}"></script>
+  <link rel="Stylesheet" href="{% static './css/custom.css' %}">
+  <link rel="Stylesheet" href="{% static './css/font-awesome.css' %}">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/"><img src="{% static './images/Logo.png' %}" width="140px"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link" href="#home-id">Home</a>
+          <a class="nav-link" href="#features-id">Features</a>
+          <a class="nav-link" href="#pricing-id">Pricing</a>
+          <a class="nav-link" href="#footer">Contact Us</a>
+        </div>
+      </div>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      {% if user.is_authenticated %}
+      <p style="padding-top: 15px; padding-left: 8px;">{{ user.username }}</p>
+      <button type="button" id="signin" onclick="redirectTologout()"><i class="fa fa-sign-out"
+          aria-hidden="true"></i></button>
+      {% else %}
+      <button type="button" id="signin" onclick="redirectToAccounts()"><i class="fa fa-sign-in"
+          aria-hidden="true"></i></button>
+      {% endif %}
+    </form>
+    </div>
+  </nav>
+  <div class="container-fluid" id="main-div">
+    <div class="row">
+      <div id="carouselExampleSlidesOnly" class="carousel slide position-relative" data-bs-ride="carousel">
+        <div class="carousel-inner" style="max-height:600px;" id="home-id">
+          <div class="carousel-item active">
+            <img src="{% static './images/Front-1.jpg' %}" class="d-block w-100" alt="Image Not Found!">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static './images/Front-2.jpg' %}" class="d-block w-100" alt="Image Not Found!">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static './images/Front-3.jpg' %}" class="d-block w-100" alt="Image Not Found!">
+          </div>
+        </div>
+      </div>
+      <div class="overlay">
+        <div class="main-text">
+          <h2>A Room Without Books Is Like A Body Without A Soul.</h2>
+        </div>
+        <div>
+          <button type="button" class="explore-button" onclick="scrollToFeatures()">Explore Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="container text-center" id="features-id">
+        <div class="row">
+          <div class="col">
+            <img src="{% static './images/new_releases.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">New Releases</h5>
+              <p class="card-text">Explore some of our latest releases here.</p>
+              <button type="button" class="explore-button cart">Check It Out</button>
+            </div>
+          </div>
+          <div class="col">
+            <img src="{% static './images/Discount.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Discounts & Offers</h5>
+              <p class="card-text">Explore amazing discounts and offers.</p>
+              <button type="button" class="explore-button cart">Check It Out</button>
+            </div>
+          </div>
+          <div class="col">
+            <img src="{% static './images/Gifting.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Gift Ideas</h5>
+              <p class="card-text">Want to gift your loved ones? See Options!</p>
+              <button type="button" class="explore-button cart">Check It Out</button>
+            </div>
+          </div>
+          <div class="col">
+            <img src="{%static './images/best_sellers.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Best Sellers</h5>
+              <p class="card-text">Check out some of our best ones.</p>
+              <button type="button" class="explore-button cart">Check It Out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="row text-center">
+    <div>
+      <img class="school-image" src="{%static './images/school.jpg' %}" href="./index.html" alt="Image Not Found">
+    </div>
+    <div class="section1" id="pricing-id">
+      <p>Novels</p>
+    </div>
+    {% for BOOK in BOOKS %}
+    {% with i=forloop.counter %}
+    {% if i <= 4 %} 
+    <div class="col">
+      <img src="{% static 'images/' %}{{ BOOK.IMAGE }}" class="card-img-top" alt="..." style="max-width: 180px;">
+        <div class="card-body">
+          <h5 class="card-title">{{ BOOK.BNAME }}</h5>
+          <p class="card-text">{{ BOOK.SELLER_ID_id.SELLER_NAME }}<br><br>Rs.{{ BOOK.PRICE }}</p>
+          <a href="{% url 'checkout' %}?book_name={{ BOOK.BNAME|urlencode }}&book_price={{ BOOK.PRICE }}">
+            <button type="button" class="explore-button cart">Buy Now</button>
+          </a>        
+        </div>
+    </div>
+  {% endif %}
+  {% endwith %}
+  {% endfor %}
+  </div>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item disabled">
+        <a class="page-link">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#pricing-id">1</a></li>
+      <li class="page-item"><a class="page-link" href="#pricing-id">2</a></li>
+      <li class="page-item"><a class="page-link" href="#pricing-id">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#pricing-id">Next</a>
+      </li>
+    </ul>
+  </nav>
+  <div class="row text-center" id="comics">
+    <div>
+      <img class="exam-image" src="{%static './images/Exam-Preparations.jpg' %}" href="./index.html"
+        alt="Image Not Found">
+    </div>
+    <div class="section1">
+      <p>Comics</p>
+    </div>
+    <div class="row">
+      {% for BOOK in BOOKS %}
+      {% with i=forloop.counter %}
+      {% if i > 4 %}
+      <div class="col">
+        <div class="card-body">
+          <img src="{% static 'images/' %}{{ BOOK.IMAGE }}" class="card-img-top" alt="..." style="max-width: 180px;">
+          <h5 class="card-title">{{ BOOK.BNAME }}</h5>
+          <p class="card-text">{{ BOOK.SELLER_ID_id.SELLER_NAME }}<br><br>Rs.{{ BOOK.PRICE }}</p>
+          <a href="{% url 'checkout' %}?book_name={{ BOOK.BNAME|urlencode }}&book_price={{ BOOK.PRICE }}">
+          <button type="button" class="explore-button cart">Buy Now</button>
+          </a>
+        </div>
+      </div>
+      {% endif %}
+      {% endwith %}
+      {% endfor %}
+    </div>
+  </div>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center page-nav-color">
+      <li class="page-item disabled">
+        <a class="page-link">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#comics">1</a></li>
+      <li class="page-item"><a class="page-link" href="#comics">2</a></li>
+      <li class="page-item"><a class="page-link" href="#comics">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#comics">Next</a>
+      </li>
+    </ul>
+  </nav>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="card " id="footer">
+        <div class="card-body">
+          <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+            <div class="me-5 d-none d-lg-block">
+              <span>Follow Us On :</span>
+            </div>
+            <div>
+              <a href="#" class="me-4 text-reset">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="#" class="me-4 text-reset">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="#" class="me-4 text-reset">
+                <i class="fa fa-google" aria-hidden="true"></i>
+              </a>
+              <a href="#" class="me-4 text-reset">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="#" class="me-4 text-reset">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="#" class="me-4 text-reset">
+                <i class="fa fa-github" aria-hidden="true"></i>
+              </a>
+            </div>
+          </section>
+          <section class="">
+            <div class="container text-center text-md-start mt-5">
+              <div class="row mt-3">
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                  <h6 class="text-uppercase fw-bold mb-4">
+                    <i class="fas fa-gem me-3"></i>NovelNest
+                  </h6>
+                  <p>
+                    "Discover the Magic of Reading: Your Premier Destination for Books, Knowledge, and Imagination!"
+                  </p>
+                </div>
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                  <h6 class="text-uppercase fw-bold mb-4">
+                    Products
+                  </h6>
+                  <p>
+                    <a href="#!" class="text-reset">Novels</a>
+                  </p>
+                  <p>
+                    <a href="#!" class="text-reset">Comics</a>
+                  </p>
+                  <p>
+                    <a href="#!" class="text-reset">Educational</a>
+                  </p>
+                  <p>
+                    <a href="#!" class="text-reset">Others</a>
+                  </p>
+                </div>
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                  <h6 class="text-uppercase fw-bold mb-4">
+                    Others
+                  </h6>
+                  <p>
+                    <a href="#!" class="text-reset">Pricing</a>
+                  </p>
+                  <p>
+                    <a href="#!" class="text-reset">Settings</a>
+                  </p>
+                  <p>
+                    <a href="#!" class="text-reset">Orders</a>
+                  </p>
+                  <p>
+                    <a href="#!" class="text-reset">Help</a>
+                  </p>
+                </div>
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                  <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                  <p><i class="fa fa-home me-3"></i>5th Sem 'A', CSE, RIT</p>
+                  <p>
+                    <i class="fa fa-envelope me-3"></i>
+                    novelnest@mod.com
+                  </p>
+                  <p><i class="fa fa-phone me-3"></i> +91 6362635331</p>
+                  <p><i class="fa fa-print me-3"></i> +08172 269465</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
