@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-s5$b9qycm77%-1d+$!7vn^jm$=-+xel1i1)_=f$2ir9osck%73'
+SECRET_KEY = 'YOUR_SECRET_KEY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -80,8 +80,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'NOVELNEST',
-        'USER': 'modhak',
-        'PASSWORD': 'modhak1234',
+        'USER': 'YOUR_USERNAME',
+        'PASSWORD': 'YOUR_PASSWORD',
         'HOST': 'localhost',  # Or your MySQL server host
         'PORT': '3306',       # Or your MySQL server port
     }
